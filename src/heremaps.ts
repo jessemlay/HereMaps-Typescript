@@ -25,8 +25,9 @@ export class HereMapController {
                 this.map = new H.Map(document.getElementById(mapId), mapLayer, { center: { lat: position.coords.latitude, lng: position.coords.longitude }, zoom: 12 });
                 this.behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
                 this.ui = H.ui.UI.createDefault(this.map, defaultLayers);
-                this.map.addEventListener('mapviewchangeend', (evt) => { this.loaded.next(true); });
                 this.routeInstructionsContainer = document.getElementById('panel');
+                this.map.addEventListener('mapviewchangeend', (evt) => { this.loaded.next(true); });
+
             });
 
     }
@@ -121,7 +122,7 @@ export class HereMapController {
                         'prox': `${route.waypoint[0].mappedPosition.latitude},${route.waypoint[0].mappedPosition.longitude}`,
                         'mode': 'retrieveAddresses',
                         'maxresults': '1'
-                    }
+                    };
                     geocoder.reverseGeocode(startParams,
                         result => {
                             console.log(result.Response.View[0].Result[0].Location);
@@ -228,15 +229,12 @@ export class HereMapController {
 
     addWaypointsToPanel = (waypoints: any) => {
 
-
-
         var nodeH3 = document.createElement('h3'),
             waypointLabels = [],
             i;
 
-
         for (i = 0; i < waypoints.length; i += 1) {
-            waypointLabels.push(waypoints[i].label)
+            waypointLabels.push(waypoints[i].label);
         }
 
         nodeH3.textContent = waypointLabels.join(' - ');
@@ -246,14 +244,14 @@ export class HereMapController {
     }
 
     addSummaryToPanel = (summary: any) => {
+
         var summaryDiv = document.createElement('div'),
             content = '';
         content += '<b>Total distance</b>: ' + summary.distance + 'm. <br/>';
-        var duration = moment.duration(summary.travelTime, 'minutes');
-        var time = moment(duration.asMilliseconds()).format('MM:ss');
+        var duration = moment.duration(summary.travelTime, 'seconds');
+        var time = moment(duration.asMilliseconds()).format('mm:ss');
 
         content += '<b>Travel Time</b>: ' + time + ' (in current traffic)';
-
 
         summaryDiv.style.fontSize = 'small';
         summaryDiv.style.marginLeft = '5%';
@@ -263,8 +261,4 @@ export class HereMapController {
     }
 }
 
-
-(<any>Number.prototype).toMMSS = () => {
-    return Math.floor(this / 60) + ' minutes ' + (this % 60) + ' seconds.';
-}
 

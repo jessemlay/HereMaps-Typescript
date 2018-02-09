@@ -16,8 +16,12 @@ mapController.loaded.subscribe(
         next: (v) => {
             if (v) {
                 console.log('map loaded');
+                let waypoints: string[] = [];
+                waypoints.push('geo!52.5,13.4');
+                waypoints.push('geo!52.5,13.45');
+                mapController.route(waypoints, 'routeResults', null);
                 // mapController.map.setBaseLayer(layers.satellite.map);
-               
+
                 // mapController.search('1400 Tether drive');
             } else {
                 console.log('map not loaded yet');
@@ -27,10 +31,7 @@ mapController.loaded.subscribe(
 
 
 
-    let waypoints: string[] = [];
-    waypoints.push('geo!52.5,13.4');
-    waypoints.push('geo!52.5,13.45');
-    mapController.route(waypoints, 'routeResults', null);
+
 
 
 
