@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": true,
+    "module": "commonjs",
+    "target": "es5",
+    "allowJs": true,
+    "lib": [
+      "dom",
+      "es2015.promise",
+      "es5"
+    ]
+  }
+}
